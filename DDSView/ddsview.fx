@@ -82,5 +82,5 @@ float4 PS_3D( PS_INPUT input) : SV_Target
 
 float4 PS_Cube( PS_INPUT input) : SV_Target
 {
-    return tx2DArray.Sample( samLinear, float3(input.Tex.xy, input.Tex.z + (6*Index)) );
+    return tx2DArray.SampleLevel( samLinear, input.Tex.xyz, Index);
 }

@@ -18,14 +18,20 @@ set PCFXC=fxc.exe
 
 :continue
 @if not exist Compiled mkdir Compiled
-call :CompileShader BC7Encode TryMode456CS
-call :CompileShader BC7Encode TryMode137CS
-call :CompileShader BC7Encode TryMode02CS
-call :CompileShader BC7Encode EncodeBlockCS
 
-call :CompileShader BC6HEncode TryModeG10CS
-call :CompileShader BC6HEncode TryModeLE10CS
-call :CompileShader BC6HEncode EncodeBlockCS
+call :CompileShader vs_4_0 IBLSampler VS_CubeMap
+call :CompileShader gs_4_0 IBLSampler GS_CubeMap
+call :CompileShader ps_4_0 IBLSampler PS_SpecularCubeMap
+call :CompileShader ps_4_0 IBLSampler PS_DiffuseCubeMap
+
+call :CompileShader cs_4_0 BC7Encode TryMode456CS
+call :CompileShader cs_4_0 BC7Encode TryMode137CS
+call :CompileShader cs_4_0 BC7Encode TryMode02CS
+call :CompileShader cs_4_0 BC7Encode EncodeBlockCS
+
+call :CompileShader cs_4_0 BC6HEncode TryModeG10CS
+call :CompileShader cs_4_0 BC6HEncode TryModeLE10CS
+call :CompileShader cs_4_0 BC6HEncode EncodeBlockCS
 
 echo.
 
@@ -39,7 +45,7 @@ endlocal
 exit /b
 
 :CompileShader
-set fxc=%PCFXC% %1.hlsl %FXCOPTS% /Tcs_4_0 /E%2 /FhCompiled\%1_%2.inc /FdCompiled\%1_%2.pdb /Vn%1_%2
+set fxc=%PCFXC% %2.hlsl %FXCOPTS% /T%1 /E%3 /FhCompiled\%2_%3.inc /FdCompiled\%2_%3.pdb /Vn%2_%3
 echo.
 echo %fxc%
 %fxc% || set error=1

@@ -33,7 +33,7 @@ namespace
         UINT color[4];
     };
 
-    struct ConstantsBC6HBC7
+    struct Constants
     {
         UINT    tex_width;
         UINT    num_block_x;
@@ -45,7 +45,7 @@ namespace
         UINT    reserved;
     };
 
-    static_assert(sizeof(ConstantsBC6HBC7) == sizeof(UINT) * 8, "Constant buffer size mismatch");
+    static_assert(sizeof(Constants) == sizeof(UINT) * 8, "Constant buffer size mismatch");
 
     inline void RunComputeShader(ID3D11DeviceContext* pContext,
         ID3D11ComputeShader* shader,
@@ -285,7 +285,7 @@ HRESULT GPUCompressBC::Prepare(size_t width, size_t height, DWORD flags, DXGI_FO
         desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
         desc.Usage = D3D11_USAGE_DYNAMIC;
         desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-        desc.ByteWidth = sizeof(ConstantsBC6HBC7);
+        desc.ByteWidth = sizeof(Constants);
 
         HRESULT hr = pDevice->CreateBuffer(&desc, nullptr, m_constBuffer.ReleaseAndGetAddressOf());
         if (FAILED(hr))
@@ -446,7 +446,7 @@ HRESULT GPUCompressBC::Compress(const Image& srcImage, const Image& destImage)
             if (FAILED(hr))
                 return hr;
 
-            ConstantsBC6HBC7 param;
+            Constants param;
             param.tex_width = static_cast<UINT>(srcImage.width);
             param.num_block_x = static_cast<UINT>(xblocks);
             param.format = m_bcformat;
@@ -484,7 +484,7 @@ HRESULT GPUCompressBC::Compress(const Image& srcImage, const Image& destImage)
                             return hr;
                         }
 
-                        ConstantsBC6HBC7 param;
+                        Constants param;
                         param.tex_width = static_cast<UINT>(srcImage.width);
                         param.num_block_x = static_cast<UINT>(xblocks);
                         param.format = m_bcformat;
@@ -519,7 +519,7 @@ HRESULT GPUCompressBC::Compress(const Image& srcImage, const Image& destImage)
                             return hr;
                         }
 
-                        ConstantsBC6HBC7 param;
+                        Constants param;
                         param.tex_width = static_cast<UINT>(srcImage.width);
                         param.num_block_x = static_cast<UINT>(xblocks);
                         param.format = m_bcformat;
@@ -559,7 +559,7 @@ HRESULT GPUCompressBC::Compress(const Image& srcImage, const Image& destImage)
                         return hr;
                     }
 
-                    ConstantsBC6HBC7 param;
+                    Constants param;
                     param.tex_width = static_cast<UINT>(srcImage.width);
                     param.num_block_x = static_cast<UINT>(xblocks);
                     param.format = m_bcformat;

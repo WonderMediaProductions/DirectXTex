@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Shaders\Symbols">
       <UniqueIdentifier>{c0d1c51b-c157-45b8-9169-af3cc2c4f4b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shaders\BRDF">
+      <UniqueIdentifier>{10468032-e30c-4e05-8c15-75026e5cac74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="DirectXTex.h">
@@ -42,6 +45,9 @@
     <CLInclude Include="scoped.h">
       <Filter>Source Files</Filter>
     </CLInclude>
+    <ClInclude Include="IBLCompute.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BC.cpp">
@@ -99,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DirectXTexHDR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IBLCompute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,5 +168,40 @@
     <None Include="Shaders\Compiled\BC7Encode_TryMode456CS.pdb">
       <Filter>Source Files\Shaders\Symbols</Filter>
     </None>
+    <None Include="Shaders\Compiled\IBLSampler_GS_CubeMap.inc">
+      <Filter>Source Files\Shaders\Compiled</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_PS_DiffuseCubeMap.inc">
+      <Filter>Source Files\Shaders\Compiled</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_PS_SpecularCubeMap.inc">
+      <Filter>Source Files\Shaders\Compiled</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_VS_CubeMap.inc">
+      <Filter>Source Files\Shaders\Compiled</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_VS_CubeMap.pdb">
+      <Filter>Source Files\Shaders\Symbols</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_PS_SpecularCubeMap.pdb">
+      <Filter>Source Files\Shaders\Symbols</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_PS_DiffuseCubeMap.pdb">
+      <Filter>Source Files\Shaders\Symbols</Filter>
+    </None>
+    <None Include="Shaders\Compiled\IBLSampler_GS_CubeMap.pdb">
+      <Filter>Source Files\Shaders\Symbols</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\IBLSampler.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\BRDF\schlick.hlsl">
+      <Filter>Source Files\Shaders\BRDF</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\BRDF\smith.hlsl">
+      <Filter>Source Files\Shaders\BRDF</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

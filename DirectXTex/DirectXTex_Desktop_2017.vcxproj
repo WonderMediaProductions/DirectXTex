@@ -315,6 +315,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IBLCompute.cpp" />
     <CLInclude Include="BC.h" />
     <ClCompile Include="BC.cpp" />
     <ClCompile Include="BC4BC5.cpp" />
@@ -322,6 +323,7 @@
     <ClInclude Include="BCDirectCompute.h" />
     <CLInclude Include="DDS.h" />
     <ClInclude Include="filters.h" />
+    <ClInclude Include="IBLCompute.h" />
     <CLInclude Include="scoped.h" />
     <CLInclude Include="DirectXTex.h" />
     <CLInclude Include="DirectXTexp.h" />
@@ -374,7 +376,26 @@
     <None Include="Shaders\Compiled\BC7Encode_TryMode137CS.pdb" />
     <None Include="Shaders\Compiled\BC7Encode_TryMode456CS.inc" />
     <None Include="Shaders\Compiled\BC7Encode_TryMode456CS.pdb" />
+    <None Include="Shaders\Compiled\IBLSampler_GS_CubeMap.inc" />
+    <None Include="Shaders\Compiled\IBLSampler_GS_CubeMap.pdb" />
+    <None Include="Shaders\Compiled\IBLSampler_PS_DiffuseCubeMap.inc" />
+    <None Include="Shaders\Compiled\IBLSampler_PS_DiffuseCubeMap.pdb" />
+    <None Include="Shaders\Compiled\IBLSampler_PS_SpecularCubeMap.inc" />
+    <None Include="Shaders\Compiled\IBLSampler_PS_SpecularCubeMap.pdb" />
+    <None Include="Shaders\Compiled\IBLSampler_VS_CubeMap.inc" />
+    <None Include="Shaders\Compiled\IBLSampler_VS_CubeMap.pdb" />
     <None Include="Shaders\CompileShaders.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\BRDF\schlick.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shaders\BRDF\smith.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shaders\IBLSampler.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

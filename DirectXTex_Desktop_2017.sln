@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LegacyCubeMapEdgeFixer", "LegacyCubeMapEdgeFixer\LegacyCubeMapEdgeFixer.vcxproj", "{4A97B471-895E-42BF-8A21-0488AF48F7CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -91,6 +93,18 @@ Global
 		{8E31A619-F4F8-413F-A973-4EE37B1AAA5D}.Release|Win32.Build.0 = Release|Win32
 		{8E31A619-F4F8-413F-A973-4EE37B1AAA5D}.Release|x64.ActiveCfg = Release|x64
 		{8E31A619-F4F8-413F-A973-4EE37B1AAA5D}.Release|x64.Build.0 = Release|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Debug|Win32.Build.0 = Debug|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Debug|x64.ActiveCfg = Debug|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Debug|x64.Build.0 = Debug|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Profile|Win32.ActiveCfg = Release|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Profile|Win32.Build.0 = Release|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Profile|x64.ActiveCfg = Release|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Profile|x64.Build.0 = Release|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Release|Win32.ActiveCfg = Release|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Release|Win32.Build.0 = Release|Win32
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Release|x64.ActiveCfg = Release|x64
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +114,7 @@ Global
 		{C3A65381-8FD3-4F69-B29E-654B4B0ED136} = {AEA1D9F7-EA95-4BF7-8E6D-0EA068077943}
 		{9D3EDCAD-A800-43F0-B77F-FE6E4DFA3D84} = {E14090F7-2FE9-47EE-A331-14ED71801FDE}
 		{8E31A619-F4F8-413F-A973-4EE37B1AAA5D} = {AEA1D9F7-EA95-4BF7-8E6D-0EA068077943}
+		{4A97B471-895E-42BF-8A21-0488AF48F7CA} = {E14090F7-2FE9-47EE-A331-14ED71801FDE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFB3C228-4C26-4746-8E0C-71C310403E8C}

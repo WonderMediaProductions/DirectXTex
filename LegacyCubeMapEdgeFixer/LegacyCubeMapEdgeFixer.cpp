@@ -27,13 +27,13 @@ struct Uniforms
 
 #define CHECK(call) { HRESULT _hr_ = (call); if (FAILED(_hr_)) throw std::runtime_error(#call); }
 
-int main()
+int wmain(int argc, wchar_t* argv[])
 {
     try
     {
-        const auto inputFilePath = L"C:\\dev\\glTF\\Maya2glTF\\maya\\renderData\\images\\PaperMill_specular_env.dds";
-        const auto outputFilePath = L"C:\\dev\\glTF\\Maya2glTF\\maya\\renderData\\images\\PaperMill_S_specular_env.dds";
-        
+        const auto inputFilePath = argv[1];
+        const auto outputFilePath = argv[2];
+
         // Create DXGI factory
         ComPtr<IDXGIFactory1> dxgiFactory;
         CHECK(CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(dxgiFactory.GetAddressOf())));
@@ -166,7 +166,7 @@ int main()
         // Create the target cube map
         // Create the target cube map TextureCube (array of 6 textures)
         D3D11_TEXTURE2D_DESC outputTexDesc = {};
-        outputTexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+        outputTexDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
         outputTexDesc.Width = UINT(sourceMetaData.width);
         outputTexDesc.Height = UINT(sourceMetaData.height);
         outputTexDesc.ArraySize = 6;
@@ -234,7 +234,7 @@ int main()
         context->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
 
         // Render all cube faces at all mip levels
-        for (int mipLevel=0; mipLevel<outputTexDesc.MipLevels; ++mipLevel)
+        for (UINT mipLevel=0; mipLevel<outputTexDesc.MipLevels; ++mipLevel)
         {
             // Create the RTVs
             D3D11_RENDER_TARGET_VIEW_DESC outputRtvDesc = {};
@@ -245,7 +245,6 @@ int main()
             outputRtvDesc.Texture2DArray.ArraySize = 6;
             ComPtr<ID3D11RenderTargetView> outputRtv;
             CHECK(device->CreateRenderTargetView(outputTexture.Get(), &outputRtvDesc, &outputRtv));
-
             context->OMSetRenderTargets(1, outputRtv.GetAddressOf(), nullptr);
 
             CD3D11_VIEWPORT viewport(outputTexture.Get(), outputRtv.Get());
@@ -276,6 +275,6 @@ int main()
         std::cout << ex.what() << std::endl;
     }
 
-    getchar();
+    //getchar();
 }
 

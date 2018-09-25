@@ -208,6 +208,10 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
         g_iMaxIndex = static_cast<UINT>(mdata.depth);
     }
+    else if (mdata.IsCubemap())
+    {
+        g_iMaxIndex = static_cast<UINT>(mdata.mipLevels);
+    }
     else
     {
         g_iMaxIndex = static_cast<UINT>(mdata.arraySize);

@@ -31,8 +31,9 @@ int main()
 {
     try
     {
-        const auto inputFilePath = L"C:\\temp\\villa_nova_street_cube_irradiance.dds";
-
+        const auto inputFilePath = L"C:\\dev\\glTF\\Maya2glTF\\maya\\renderData\\images\\PaperMill_specular_env.dds";
+        const auto outputFilePath = L"C:\\dev\\glTF\\Maya2glTF\\maya\\renderData\\images\\PaperMill_S_specular_env.dds";
+        
         // Create DXGI factory
         ComPtr<IDXGIFactory1> dxgiFactory;
         CHECK(CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(dxgiFactory.GetAddressOf())));
@@ -247,9 +248,7 @@ int main()
 
             context->OMSetRenderTargets(1, outputRtv.GetAddressOf(), nullptr);
 
-            D3D11_VIEWPORT viewport = {};
-            viewport.Width = float(outputTexDesc.Width >> mipLevel);
-            viewport.Height = float(outputTexDesc.Height >> mipLevel);
+            CD3D11_VIEWPORT viewport(outputTexture.Get(), outputRtv.Get());
             context->RSSetViewports(1, &viewport);
 
             Uniforms uniforms = {};
@@ -267,7 +266,7 @@ int main()
         // Save the image.
         ScratchImage outputImage;
         CHECK(CaptureTexture(device.Get(), context.Get(), outputTexture.Get(), outputImage));
-        CHECK(SaveToDDSFile(outputImage.GetImages(), outputImage.GetImageCount(), outputImage.GetMetadata(), DDS_FLAGS_NONE, L"C:\\Temp\\Output.dds"));
+        CHECK(SaveToDDSFile(outputImage.GetImages(), outputImage.GetImageCount(), outputImage.GetMetadata(), DDS_FLAGS_NONE, outputFilePath));
 
         std::cout << "Done" << std::endl;
     }
@@ -277,6 +276,6 @@ int main()
         std::cout << ex.what() << std::endl;
     }
 
-    //getchar();
+    getchar();
 }
 

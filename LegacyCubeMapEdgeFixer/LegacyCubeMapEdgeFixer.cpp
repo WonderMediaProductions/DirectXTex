@@ -27,11 +27,17 @@ struct Uniforms
 
 #define CHECK(call) { HRESULT _hr_ = (call); if (FAILED(_hr_)) throw std::runtime_error(#call); }
 
-int main()
+int __cdecl wmain(_In_ int argc, _In_z_count_(argc) wchar_t* argv[])
 {
     try
     {
-        const auto inputFilePath = L"C:\\temp\\villa_nova_street_cube_irradiance.dds";
+        GetCommandLineW();
+
+        if (argc != 3)
+            throw std::runtime_error("Arguments: input.dds output.dds");
+
+        const auto inputFilePath = argv[1];
+        const auto outputFilePath = argv[2];
 
         // Create DXGI factory
         ComPtr<IDXGIFactory1> dxgiFactory;
@@ -88,12 +94,12 @@ int main()
 
         // Load source map
         TexMetadata sourceMetaData;
-        ScratchImage sourceScratchImage;
+        ScratchImage inputImage;
 
         ComPtr<ID3D11ShaderResourceView> inputSrv;
         CHECK(GetMetadataFromDDSFile(inputFilePath, DDS_FLAGS_NONE, sourceMetaData));
-        CHECK(LoadFromDDSFile(inputFilePath, DDS_FLAGS_NONE, &sourceMetaData, sourceScratchImage));
-        CHECK(CreateShaderResourceView(device.Get(), sourceScratchImage.GetImages(), sourceScratchImage.GetImageCount(), sourceMetaData, &inputSrv));
+        CHECK(LoadFromDDSFile(inputFilePath, DDS_FLAGS_NONE, &sourceMetaData, inputImage));
+        CHECK(CreateShaderResourceView(device.Get(), inputImage.GetImages(), inputImage.GetImageCount(), sourceMetaData, &inputSrv));
 
         // Create the shaders
         ComPtr<ID3D11PixelShader> pixelShader;
@@ -165,7 +171,7 @@ int main()
         // Create the target cube map
         // Create the target cube map TextureCube (array of 6 textures)
         D3D11_TEXTURE2D_DESC outputTexDesc = {};
-        outputTexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+        outputTexDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
         outputTexDesc.Width = UINT(sourceMetaData.width);
         outputTexDesc.Height = UINT(sourceMetaData.height);
         outputTexDesc.ArraySize = 6;
@@ -233,7 +239,7 @@ int main()
         context->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
 
         // Render all cube faces at all mip levels
-        for (int mipLevel=0; mipLevel<outputTexDesc.MipLevels; ++mipLevel)
+        for (UINT mipLevel=0; mipLevel<outputTexDesc.MipLevels; ++mipLevel)
         {
             // Create the RTVs
             D3D11_RENDER_TARGET_VIEW_DESC outputRtvDesc = {};
@@ -247,9 +253,11 @@ int main()
 
             context->OMSetRenderTargets(1, outputRtv.GetAddressOf(), nullptr);
 
+            auto* slice = inputImage.GetImage(mipLevel, 0, 0);
+
             D3D11_VIEWPORT viewport = {};
-            viewport.Width = float(outputTexDesc.Width >> mipLevel);
-            viewport.Height = float(outputTexDesc.Height >> mipLevel);
+            viewport.Width = float(slice->width);
+            viewport.Height = float(slice->height);
             context->RSSetViewports(1, &viewport);
 
             Uniforms uniforms = {};
@@ -267,13 +275,15 @@ int main()
         // Save the image.
         ScratchImage outputImage;
         CHECK(CaptureTexture(device.Get(), context.Get(), outputTexture.Get(), outputImage));
-        CHECK(SaveToDDSFile(outputImage.GetImages(), outputImage.GetImageCount(), outputImage.GetMetadata(), DDS_FLAGS_NONE, L"C:\\Temp\\Output.dds"));
+        CHECK(SaveToDDSFile(outputImage.GetImages(), outputImage.GetImageCount(),
+            outputImage.GetMetadata(), DDS_FLAGS_NONE, outputFilePath));
 
-        std::cout << "Done" << std::endl;
+        std::cout << "Completed succesfully" << std::endl;
     }
 
     catch (std::exception& ex)
     {
+        std::cout << "An error occurred!" << std::endl;
         std::cout << ex.what() << std::endl;
     }
 

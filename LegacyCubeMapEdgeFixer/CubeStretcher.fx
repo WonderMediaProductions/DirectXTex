@@ -2,7 +2,7 @@ TextureCube SourceCubeMap : register(t0);
 
 cbuffer PerEnvironmentMap : register(b0)
 {
-    int CurrentMipLevel;
+    uint CurrentMipLevel;
 };
 
 SamplerState inputSampler : register(s0);
@@ -96,14 +96,12 @@ PixelShaderOut ps(PixelShaderInput psi)
     //output.color = SourceCubeMap.SampleLevel(inputSampler, psi.normal, CurrentMipLevel);
     //return output;
 
-    uint width, height;
-    SourceCubeMap.GetDimensions(width, height);
-
-    float cubeSize = width / exp2(CurrentMipLevel);
+    uint width, height, mipCount;
+    SourceCubeMap.GetDimensions(CurrentMipLevel, width, height, mipCount);
 
     float4 outColor;
 
-    if (cubeSize <= 1)
+    if (width <= 1)
     {
         float4 c1 = SourceCubeMap.SampleLevel(inputSampler, float3(+1, 0, 0), CurrentMipLevel);
         float4 c2 = SourceCubeMap.SampleLevel(inputSampler, float3(-1, 0, 0), CurrentMipLevel);
@@ -115,7 +113,7 @@ PixelShaderOut ps(PixelShaderInput psi)
     }
     else
     {
-        float3 envDiffuseCoord = fix_cube_lookup(psi.normal, cubeSize);
+        float3 envDiffuseCoord = fix_cube_lookup(psi.normal, width);
         outColor = SourceCubeMap.SampleLevel(inputSampler, envDiffuseCoord, CurrentMipLevel);
     }
 

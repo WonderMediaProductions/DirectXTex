@@ -112,6 +112,9 @@ fxc $(ProjectDir)CubeStretcher.fx /Od /Zi /Zss /nologo /Eps /Tps_5_0 /Fh$(Projec
       <Outputs>$(ProjectDir)compiledShaders\vs.h</Outputs>
       <Inputs>$(ProjectDir)CubeStretcher.fx</Inputs>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) c:\bin\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,6 +142,9 @@ fxc $(ProjectDir)CubeStretcher.fx /Od /Zi /Zss /nologo /Eps /Tps_5_0 /Fh$(Projec
       <Outputs>$(ProjectDir)compiledShaders\vs.h</Outputs>
       <Inputs>$(ProjectDir)CubeStretcher.fx</Inputs>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) c:\bin\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -170,6 +176,9 @@ fxc $(ProjectDir)CubeStretcher.fx /nologo /Eps /Tps_5_0 /Fh$(ProjectDir)compiled
       <Outputs>$(ProjectDir)compiledShaders\vs.h</Outputs>
       <Inputs>$(ProjectDir)CubeStretcher.fx</Inputs>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) c:\bin\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -201,6 +210,9 @@ fxc $(ProjectDir)CubeStretcher.fx /nologo /Eps /Tps_5_0 /Fh$(ProjectDir)compiled
       <Outputs>$(ProjectDir)compiledShaders\vs.h</Outputs>
       <Inputs>$(ProjectDir)CubeStretcher.fx</Inputs>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) c:\bin\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="compiledShaders\gs.h" />

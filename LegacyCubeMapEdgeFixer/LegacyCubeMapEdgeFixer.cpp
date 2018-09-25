@@ -250,14 +250,9 @@ int __cdecl wmain(_In_ int argc, _In_z_count_(argc) wchar_t* argv[])
             outputRtvDesc.Texture2DArray.ArraySize = 6;
             ComPtr<ID3D11RenderTargetView> outputRtv;
             CHECK(device->CreateRenderTargetView(outputTexture.Get(), &outputRtvDesc, &outputRtv));
-
             context->OMSetRenderTargets(1, outputRtv.GetAddressOf(), nullptr);
 
-            auto* slice = inputImage.GetImage(mipLevel, 0, 0);
-
-            D3D11_VIEWPORT viewport = {};
-            viewport.Width = float(slice->width);
-            viewport.Height = float(slice->height);
+            CD3D11_VIEWPORT viewport(outputTexture.Get(), outputRtv.Get());
             context->RSSetViewports(1, &viewport);
 
             Uniforms uniforms = {};
@@ -278,7 +273,7 @@ int __cdecl wmain(_In_ int argc, _In_z_count_(argc) wchar_t* argv[])
         CHECK(SaveToDDSFile(outputImage.GetImages(), outputImage.GetImageCount(),
             outputImage.GetMetadata(), DDS_FLAGS_NONE, outputFilePath));
 
-        std::cout << "Completed succesfully" << std::endl;
+        std::wcout << L"Generated " << outputFilePath << std::endl;
     }
 
     catch (std::exception& ex)
